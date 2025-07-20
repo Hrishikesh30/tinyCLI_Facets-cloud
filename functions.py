@@ -61,7 +61,7 @@ def query_events(user_id, event_type=None, time_from=None, time_to=None):
 
     count = 0
     while True:
-        rows = cursor.fetchmany(1000)
+        rows = cursor.fetchmany(5000) #can be changed on the basis of available mermory  
         if not rows:
             break
         for row in rows:
@@ -70,5 +70,4 @@ def query_events(user_id, event_type=None, time_from=None, time_to=None):
     conn.close()
 
     print("total count return:",count)
-    #print(f"Start time: {start_time} and End time: {end_time}")
     print(f"Elapsed time: {(end_time - start_time) :.6f} seconds")
