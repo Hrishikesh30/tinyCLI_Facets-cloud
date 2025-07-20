@@ -28,7 +28,7 @@ A tiny Python CLI to record and query an event stream using SQLite for fast, per
 
 ### 1. Record events from a file
 
-The input file should have one event per line in the format:
+The input (.txt) file should have one event per line in the format:
 
 ```
 <ISO-8601 timestamp> | <user-id> | <event-type> | <payload>
