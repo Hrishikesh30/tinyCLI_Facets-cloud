@@ -1,2 +1,4 @@
 __pycache__/
 events.db
+big_events.txt
+events_1m.txt
