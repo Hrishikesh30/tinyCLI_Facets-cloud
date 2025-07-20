@@ -1,6 +1,6 @@
 import click
 from functions import ingest, query_events
-from database import init_db
+from database import init_db, setup_indexes
 
 @click.group()
 def cli():
@@ -9,7 +9,11 @@ def cli():
 @cli.command("record")
 @click.argument('file_path')
 def record(file_path):
-    ingest(file_path) #ingest text file to database
+    conn=ingest(file_path) #ingest text file to database
+    cursor=conn.cursor()
+    setup_indexes(cursor) #create index after ingesting data to the db
+    conn.commit()
+    conn.close()
 
 @cli.command("query")
 @click.argument('user_id', type=int)
