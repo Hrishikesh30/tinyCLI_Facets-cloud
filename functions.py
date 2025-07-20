@@ -6,13 +6,29 @@ def ingest(file_path):
     conn = sqlite3.connect(DB_NAME)
     cursor = conn.cursor()
     start_time = time.perf_counter()
+    batch_size=10000
+    batch = []
     with open(file_path, 'r') as file:
         for line in file:
             if line.strip():
                 timestamp, user_id, event_type, payload = [x.strip() for x in line.split('|', 3)]
-                cursor.execute("INSERT INTO events (timestamp, user_id, event_type, payload) VALUES (?, ?, ?, ?)",
-                               (timestamp, int(user_id), event_type, payload))
-    
+                batch.append((timestamp, int(user_id), event_type, payload))
+
+                # insert batch
+                if len(batch) == batch_size:
+                    cursor.executemany(
+                        "INSERT INTO events (timestamp, user_id, event_type, payload) VALUES (?, ?, ?, ?)",
+                        batch
+                    )
+                    batch.clear()
+
+        # insert remaining rows
+        if batch:
+            cursor.executemany(
+                "INSERT INTO events (timestamp, user_id, event_type, payload) VALUES (?, ?, ?, ?)",
+                batch
+            )
+    conn.commit()
     end_time = time.perf_counter()
     print(f"Ingestion completed in {end_time - start_time:.4f} seconds.")
     return conn
@@ -55,4 +71,4 @@ def query_events(user_id, event_type=None, time_from=None, time_to=None):
 
     print("total count return:",count)
     #print(f"Start time: {start_time} and End time: {end_time}")
-    print(f"Elapsed time: {(end_time - start_time) * 1_000_000:.0f} microseconds")
+    print(f"Elapsed time: {(end_time - start_time) :.6f} seconds")
