@@ -13,12 +13,11 @@ A tiny Python CLI to record and query an event stream using SQLite for fast, per
 ## Requirements
 
 - Python 3.7+
-- No external servers or cloud services required
-- Only standard Python libraries and `click` (installable via pip)
+- Python libraries and `click` (installable via pip)
 
 ## Setup
 
-1. **Clone the repository** (if not already):
+1. **Clone the repository**:
 
 2. **Install dependencies:**
    ```sh
@@ -80,7 +79,7 @@ python main.py query <user-id> [--type=<event-type>] [--from=<ISO8601>] [--to=<I
 
 - Designed to handle 1M+ events efficiently (query in ≤ 1s on typical hardware)
 - Uses SQLite indexes for fast lookups
-
+- Optimized ingestion using batch inserts and deferred index creation to improve overall performance.
 ## Testing
 
 - You can use the provided `f1.txt` or create your own event file for testing.
