@@ -83,7 +83,7 @@ python main.py query <user-id> [--type=<event-type>] [--from=<ISO8601>] [--to=<I
 
 ## Testing
 
-- You can use the provided `f1.txt`, `events_1m.txt` or `big_events.txt` create your own event file for testing.
+- You can use the provided `f1.txt` or create your own event file for testing.
 - Example:
   ```sh
   python main.py record f1.txt
