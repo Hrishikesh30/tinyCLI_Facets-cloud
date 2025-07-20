@@ -20,8 +20,8 @@ def init_db():
 
 def setup_indexes(cursor):
     start_time =time.perf_counter()
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_id ON events (user_id)")
-    cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON events (user_id, event_type)")
+    #cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_id ON events (user_id)")
+    #cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type ON events (user_id, event_type)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_time ON events (user_id, timestamp)")
     cursor.execute("CREATE INDEX IF NOT EXISTS idx_user_type_time ON events (user_id, event_type, timestamp)")
     end_time = time.perf_counter()
